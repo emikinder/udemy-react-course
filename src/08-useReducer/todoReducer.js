@@ -1,14 +1,21 @@
-
-
-
 export const todoReducer = (initialState = [], action) => {
 	switch (action.type) {
-		case '1':
-			throw new Error('action.type = 1 doesnt exists');
-		case '2':
-			throw new Error('action.type = 2 doesnt exists');
+		case 'AddTodo':
+			return [...initialState, action.payload];
+		case 'DeleteTodo':
+			return initialState.filter((todo) => todo.id !== action.payload);
+		case 'ToggleTodo':
+			return initialState.map((todo) => {
+				if (todo.id === action.payload) {
+					return {
+						...todo,
+						done: !todo.done
+					}
+				}
+
+				return todo;
+			});
 		default:
-            return initialState;
-			break;
+			return initialState;
 	}
 };
